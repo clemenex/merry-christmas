@@ -3,11 +3,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Music, Pause, Play, Camera, X, Snowflake } from 'lucide-react';
 
-// --- Assets & Constants ---
-// In a real Next.js app, you would place your audio file in the /public folder
-// and reference it like '/music/christmas-song.mp3'
 const PLACEHOLDER_MUSIC_SRC = "letterbg.mp3"; 
-const PAPER_TEXTURE = "bg-stone-50"; // Simulating paper with Tailwind color
+const PAPER_TEXTURE = "bg-stone-50";
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +23,6 @@ export default function App() {
     setSnowflakes(flakes);
   }, []);
 
-  // Handle Music Toggle
   const toggleMusic = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
@@ -37,20 +33,16 @@ export default function App() {
     setIsPlaying(!isPlaying);
   };
 
-  // Handle Opening the Letter
   const openLetter = () => {
-    if (isOpen) return; // Already open
+    if (isOpen) return;
     setIsOpen(true);
     
-    // Auto-play music on open (optional interaction)
     if (audioRef.current && !isPlaying) {
       audioRef.current.play().catch(() => {
-        // Auto-play might be blocked by browser, user can manually play
       });
       setIsPlaying(true);
     }
 
-    // Delay showing full content to allow animation to play
     setTimeout(() => {
       setShowLetterContent(true);
     }, 800);
