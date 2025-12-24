@@ -6,15 +6,24 @@ import { Heart, Music, Pause, Play, Camera, X, Snowflake } from 'lucide-react';
 const PLACEHOLDER_MUSIC_SRC = "letterbg.mp3"; 
 const PAPER_TEXTURE = "bg-stone-50";
 
+interface SnowflakeData {
+  left: number;
+  duration: number;
+  delay: number;
+  fontSize: number;
+}
+
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showLetterContent, setShowLetterContent] = useState(false);
-  const [snowflakes, setSnowflakes] = useState([]);
-  const audioRef = useRef(null);
+  
+  const [snowflakes, setSnowflakes] = useState<SnowflakeData[]>([]);
+  
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const flakes = [...Array(20)].map(() => ({
+    const flakes: SnowflakeData[] = [...Array(20)].map(() => ({
       left: Math.random() * 100,
       duration: 5 + Math.random() * 5,
       delay: Math.random() * 5,
@@ -48,7 +57,7 @@ export default function App() {
     }, 800);
   };
 
-  const closeLetter = (e) => {
+  const closeLetter = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowLetterContent(false);
     setTimeout(() => setIsOpen(false), 300);
@@ -198,17 +207,17 @@ export default function App() {
             {/* Close Button */}
             <button 
               onClick={closeLetter}
-              className="absolute top-4 right-4 text-stone-400 hover:text-red-800 transition-colors"
+              className="absolute top-4 right-4 text-stone-400 hover:text-red-800 transition-colors z-20"
             >
               <X size={24} />
             </button>
 
             {/* Letter Content */}
-            <div className="relative flex flex-col items-center text-center space-y-6">
+            <div className="relative flex flex-col items-center text-center space-y-6 w-full">
               
               {/* Photo Placeholder */}
-              <div className="w-full h-64 bg-stone-200 border-8 border-white shadow-md rotate-[-2deg] flex items-center justify-center overflow-hidden group relative">
-                <img src="us.jpg"/>
+              <div className="w-full h-64 shrink-0 bg-stone-200 border-8 border-white shadow-md rotate-[-2deg] flex items-center justify-center overflow-hidden group relative">
+                <img src="us.jpg" alt="Us" className="w-full h-full object-cover"/>
               </div>
 
               {/* Text Content */}
@@ -230,7 +239,7 @@ export default function App() {
               </div>
 
               {/* Decorative Footer */}
-              <div className="pt-6 text-yellow-600/50">
+              <div className="pt-6 text-yellow-600/50 shrink-0">
                 <Snowflake size={24} />
               </div>
 
