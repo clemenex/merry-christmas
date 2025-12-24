@@ -198,8 +198,14 @@ export default function App() {
       {/* --- The Expanded Love Letter Modal --- */}
       {/* This overlay appears after the envelope opens */}
       {showLetterContent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-500">
-          <div className="relative bg-stone-50 w-full max-w-lg p-8 md:p-12 shadow-2xl rounded-sm transform transition-all animate-in zoom-in-95 duration-500 rotate-1">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-500"
+          onClick={closeLetter}
+        >
+          <div 
+            className="relative bg-stone-50 w-full max-w-lg p-8 md:p-12 shadow-2xl rounded-sm transform transition-all animate-in zoom-in-95 duration-500 rotate-1 max-h-[90vh] overflow-y-auto custom-scrollbar"
+            onClick={(e) => e.stopPropagation()}
+          >
             
             {/* Paper Texture Overlay */}
             <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]"></div>
@@ -221,7 +227,7 @@ export default function App() {
               </div>
 
               {/* Text Content */}
-              <div className="space-y-4 w-full max-h-[50vh] md:max-h-[60vh] overflow-y-auto custom-scrollbar px-2">
+              <div className="space-y-4 w-full px-2">
                 <h2 className="text-3xl md:text-4xl text-red-900 font-handwriting">My Dearest, Fiancée</h2>
                 <p className="font-serif-display text-stone-700 leading-relaxed text-sm">
                   Merry Christmas! <br/><br/>
